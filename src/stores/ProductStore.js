@@ -1,6 +1,6 @@
 import { BaseStore } from "fluxible/addons";
 import ActionNames from "../constants/ActionNames";
-import _ from "lodash";
+// import _ from "lodash";
 
 /*
 */
@@ -23,7 +23,7 @@ class ProductStore extends BaseStore {
     this.emitChange();
   }
 
-  get(id) {
+  get() {
     return this.product;
   }
 

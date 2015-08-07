@@ -14,16 +14,11 @@
   "author": "andyz",
   "license": "MIT",
   "devDependencies": {
-    "babel": "^5.8.20",
-    "babel-eslint": "^3.1.23",
-    "babel-loader": "^5.3.2",
     "eslint": "^1.0.0",
-    "expose-loader": "^0.7.0",
+    "eslint-plugin-react": "^3.2.0",
     "express": "^4.13.3",
     "nodemon": "^1.4.0",
-    "react": "^0.13.3",
     "react-hot-loader": "^1.2.8",
-    "webpack": "^1.10.5",
     "webpack-dev-server": "^1.10.1"
   },
   "dependencies": {

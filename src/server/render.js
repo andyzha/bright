@@ -4,7 +4,6 @@
 import React from "react";
 import serialize from "serialize-javascript";
 
-import routes from "../routes";
 import app from "../app";
 import HtmlDocument from "./HtmlDocument";
 
