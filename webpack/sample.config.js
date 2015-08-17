@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var node_modules_dir = path.join(__dirname, "../node_modules");
+var nodeModulesDir = path.join(__dirname, "../node_modules");
 var assetsPath = path.resolve(__dirname, "../public/assets");
 
 var WEBPACK_HOST = "localhost";
@@ -43,13 +43,13 @@ var config = {
     noParse: [],
     loaders: [
       { test: /\.jsx?$/, loaders: ['react-hot', 'babel-loader?experimental'], exclude: /node_modules/ },
-      { test: path.resolve(node_modules_dir, deps[0]), loader: "expose?React" }
+      { test: path.resolve(nodeModulesDir, deps[0]), loader: "expose?React" }
     ]
   }
 }
 
 deps.forEach(function (dep) {
-  var depPath = path.resolve(node_modules_dir, dep);
+  var depPath = path.resolve(nodeModulesDir, dep);
   config.resolve.alias[dep.split(path.sep)[0]] = depPath;
   config.module.noParse.push(depPath);
 });

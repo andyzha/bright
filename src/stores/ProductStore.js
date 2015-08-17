@@ -1,5 +1,7 @@
 import { BaseStore } from "fluxible/addons";
 import ActionNames from "../constants/ActionNames";
+
+var debug = require("debug")("brightstore");
 // import _ from "lodash";
 
 /*
@@ -19,12 +21,14 @@ class ProductStore extends BaseStore {
   }
 
   handleLoadProductSuccess(product) {
-    this.product = product;
+    debug('product in store' + JSON.stringify(product));
+    this.product[product.id] = product;
     this.emitChange();
   }
 
-  get() {
-    return this.product;
+  get(id) {
+    debug("return product from store for " + id + ": " + this.product[id]);
+    return this.product[id];
   }
 
   dehydrate() {

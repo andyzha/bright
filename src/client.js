@@ -7,7 +7,7 @@ es6Promise.polyfill();
 
 window.debug = require("debug");
 
-const debug = window.debug("BrightProto1");
+const debug = window.debug("brightProto1");
 
 const mountNode = document.getElementById("root");
 const dehydratedState = window.App;

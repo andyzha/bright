@@ -3,7 +3,7 @@ import React from "react";
 import About from "./components/About";
 import Home from "./components/Home";
 //import User from "./components/User";
-import Product from "./components/Product";
+import ProductDetail from "./components/product/ProductDetail";
 
 import NavActions from "./actions/navAction";
 
@@ -31,7 +31,7 @@ export default {
   product: {
     path: "/product/:id",
     method: "get",
-    handler: Product,
+    handler: ProductDetail,
     action: NavActions.getProduct
   },
 

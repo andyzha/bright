@@ -2,8 +2,7 @@
   "watch": [
     "config",
     "src/constants",
-    "src/components",
-    "src/actions",
+    "src/intl",
     "src/server",
     "src/services",
     "src/app.js",

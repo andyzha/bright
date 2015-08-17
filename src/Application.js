@@ -3,8 +3,8 @@ import React, { PropTypes, Component } from "react";
 import { provideContext, connectToStores } from "fluxible-addons-react";
 import { handleHistory } from "fluxible-router";
 
-// import Page from "./components/Page";
-import Immutable from "immutable";
+import Page from "./components/base/Page";
+// import Immutable from "immutable";
 
 import NotFoundPage from "./components/NotFoundPage";
 import ErrorPage from "./components/ErrorPage";
@@ -90,7 +90,9 @@ class Application extends Component {
       content = <Handler {...params} />;
     }
     return (
-        <div>{ content }</div>
+      <Page footer={isNavigateComplete}>
+        { content }
+      </Page>
     );
   }
 

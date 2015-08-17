@@ -2,7 +2,7 @@ import WebpackDevServer from "webpack-dev-server";
 import webpack from "webpack";
 import config from "./dev.config";
 
-const debug = require("debug")("brightProto1");
+const debug = require("debug")("brightproto1");
 
 const WEBPACK_HOST = process.env.HOST || "localhost";
 const WEBPACK_PORT = parseInt(process.env.PORT) + 1 || 3001;
@@ -12,7 +12,7 @@ const serverOptions = {
   quiet: false,
   noInfo: true,
   hot: true,
-  stats: { colors: true },
+  // stats: { colors: true },
   publicPath: config.output.publicPath
 };
 

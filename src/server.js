@@ -5,7 +5,6 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import favicon from "serve-favicon";
 import morgan from "morgan";
-// import csurf from "csurf";
 
 import render from "./server/render"
 const server = express();
@@ -27,5 +26,6 @@ if (server.get("env") === "development") {
 var serverInstance = server.listen(3000, function () {
   var host = serverInstance.address().address;
   var port = serverInstance.address().port;
-  console.log('BrightProto1 ${server.get("env")}; listening at http://%s:%s', host, port);
+  console.log('BrightProto1 %s; listening at http://%s:%s',
+   server.get("env"), host, port);
 });

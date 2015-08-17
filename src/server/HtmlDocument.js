@@ -19,13 +19,13 @@ class HtmlDocument extends React.Component {
 
   static propTypes = {
     context: PropTypes.object.isRequired,
-    lang: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired,
     markup: PropTypes.string.isRequired,
     script: PropTypes.arrayOf(PropTypes.string),
     css: PropTypes.arrayOf(PropTypes.string),
 
     // meta tags, title, etc.
+    lang: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
     siteName: PropTypes.string,
