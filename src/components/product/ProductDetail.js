@@ -35,6 +35,7 @@ class ProductDetail extends Component {
         <a href={`/product/${product.id}`}>
           {product.name}
         </a>
+        <button className="btn btn-lg btn-primary" >Click</button>
       </div>
     );
   }
