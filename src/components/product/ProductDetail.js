@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from "react";
 import { connectToStores } from "fluxible-addons-react";
 import { NavLink } from "fluxible-router";
+import { Grid, Row, Col } from 'react-bootstrap';
 
 var debug = require("debug")("brightProductDetail");
 // import { loadProduct } from "../actions/ProductActionCreator";
@@ -24,19 +25,22 @@ class ProductDetail extends Component {
     debug('product result' + JSON.stringify(this.props));
     const { product } = this.props;
     return (
-      <div>
-        Hello Product page!
-        <NavLink
-            key="product"
-            routeName="product"
-            navParams={{id: product.id}}>
-            {product.name}
-        </NavLink>
-        <a href={`/product/${product.id}`}>
-          {product.name}
-        </a>
-        <button className="btn btn-lg btn-primary" >Click</button>
-      </div>
+      <Row className="">
+        <Col lg={12} md={4}>
+          <h4>Hello Product page!</h4>
+        </Col>
+        <Col lg={6} md={4}>
+          <NavLink
+              key="product"
+              routeName="product"
+              navParams={{id: product.id}}>
+              {product.name}
+          </NavLink>
+        </Col>
+        <Col lg={6} md={4}>
+          <button className="btn btn-xs" >Click</button>
+        </Col>
+      </Row>
     );
   }
 }

@@ -59,7 +59,7 @@ class HtmlHeadStore extends BaseStore {
   }
 
   // Used to get internationalized messages, has access to the IntlStore
-  formatMessage(message, values={}) {
+  formatMessage(message, values={}) { //eslint-disable-line
     // const store = this.dispatcher.getStore("IntlStore");
     // const msg = new IntlMessageFormat(store.getMessage(message), store.getLocales());
     // return msg.format(values);

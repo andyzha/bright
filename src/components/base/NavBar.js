@@ -1,16 +1,18 @@
 import React, { PropTypes, Component } from "react";
 import { connectToStores } from "fluxible-addons-react";
-import { NavLink } from "fluxible-router";
+import { Navbar, Nav } from 'react-bootstrap';
+// import { DropdownButton, MenuItem } from 'react-bootstrap';
 
-import Logo from "./Logo";
+import NavItem from "./NavItem";
+// import Logo from "./Logo";
 
 // import features from "../constants/features";
 // import LocaleSwitcher from "./LocaleSwitcher";
 // import { FormattedMessage } from "../utils/IntlComponents";
 
-if (process.env.BROWSER) {
-  require("../../style/NavBar.scss");
-}
+// if (process.env.BROWSER) {
+//   require("../../style/NavBar.scss");
+// }
 
 @connectToStores([], (context) =>
   ({ route: context.getStore("RouteStore").getCurrentRoute() })
@@ -24,31 +26,32 @@ class NavBar extends Component {
   render() {
     const { route } = this.props;
     const currentFeature = route ? route.getIn(["params", "feature"]) : null;
-    const className = "NavBar-link";
     return (
-      <div className="NavBar">
-        <div className="NavBar-title">
-          <NavLink href="/">
-            <Logo />
-          </NavLink>
-        </div>
-        <div className="NavBar-links">
-          <NavLink
+      <Navbar brand='Bright-Prototype' toggleNavKey={0}>
+        <Nav right eventKey={0}> {/* This is the eventKey referenced */}
+          <NavItem
+            eventKey={1}
             key="home"
-            className={className}
             routeName="home"
             navParams={{feature: currentFeature}}>
-            home
-          </NavLink>
-          <NavLink
+            Home
+          </NavItem>
+          <NavItem
+            eventKey={2}
             key="about"
-            className={className}
             routeName="about"
             navParams={{feature: currentFeature}}>
-            about
-          </NavLink>
-        </div>
-      </div>
+            About
+          </NavItem>
+          <NavItem
+            eventKey={3}
+            key="demoproduct"
+            routeName="product"
+            navParams={{id: 123}}>
+            Demo Product
+          </NavItem>
+        </Nav>
+      </Navbar>
     );
   }
 

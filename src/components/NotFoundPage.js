@@ -6,7 +6,7 @@ class NotFoundPage extends React.Component {
   render() {
     return (
       <div>
-        aa meta.notFoundTitle
+        meta.notFoundTitle
       </div>
     );
   }
