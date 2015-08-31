@@ -41,6 +41,7 @@
     "file-loader": "^0.8.4",
     "fluxible": "^0.5.1",
     "fluxible-addons-react": "^0.1.6",
+    "fluxible-plugin-fetchr": "^0.3.6",
     "fluxible-router": "^0.2.1",
     "immutable": "^3.7.4",
     "intl": "^1.0.0",
