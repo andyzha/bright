@@ -67,7 +67,7 @@ class ProductDetail extends Component {
             </Row>
             <Row>
               <Col lg={12} md={8}>
-                <Button onClick={this.addToCart} disabled={ats  > 0 ? '' : 'disabled'}>
+                <Button onClick={this.addToCart} disabled={ats  > 0 ? true : false}>
                   {ats > 0 ? 'Add To Cart' : 'Sold Out'}
                 </Button>
               </Col>

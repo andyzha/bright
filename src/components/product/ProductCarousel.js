@@ -12,8 +12,8 @@ class ProductCarousel extends Component {
       <Carousel>
         {images.map(function(image, index){
           return (
-            <CarouselItem>
-              <img className='.img-responsive' width={900} height={500} alt='900x500' src={image}/>
+            <CarouselItem key={index}>
+              <img className='.img-responsive' width='50%' alt='900x500' src={image}/>
               <div className='carousel-caption'>
                 <h3>Image {index} label</h3>
                 <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>

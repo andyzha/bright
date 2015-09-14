@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import SchemaOptions from './EnableVirtualGetterOption';
 
 const ProductSchema = new Schema({
   name: {type : String, trim : true},
@@ -11,12 +12,13 @@ const ProductSchema = new Schema({
     inventory: {type : Number, max : 999}
   }],
   createdAt: {type : Date, default : Date.now}
-});
+}, SchemaOptions);
 
 //validation
 ProductSchema.path('name').required(true, 'Product name is required');
 ProductSchema.path('images').required(true, 'Product images is required');
 
+//virtuals
 
 //statics
 

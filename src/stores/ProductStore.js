@@ -21,9 +21,8 @@ class ProductStore extends BaseStore {
   }
 
   handleLoadProductSuccess(product) {
-    debug('product in store id - ' + product.name + ' : ' + product);
-    // convert _id to id in product
-    product.id = product._id;
+    debug('product in store: ' + JSON.stringify(product));
+
     this.product[product.id] = product;
     this.emitChange();
   }

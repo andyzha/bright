@@ -19,7 +19,7 @@ const ProductActionCreator = {
           return done(err);
         }
 
-        debug("return data" + data);
+        debug("return data: " + data);
         context.dispatch(ActionNames.LOAD_Product_SUCCESS, data);
         done();
       }

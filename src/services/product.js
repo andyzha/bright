@@ -52,10 +52,14 @@ export default {
 
     //debug("product service return" + mockProduct);
     //done(null, mockProduct);
-    ProductModel.find(function (err, products) {
-      if (err) return console.error(err);
-      debug('db result: ' + products);
-      done(null, products[0]);
+
+
+    //TODO: sanitize id
+    ProductModel.findById(id, (err, product) => {
+      if (err) return done(err);
+      debug('db result: ' + product.id);
+      if (!product) return done('no product found for id ' + id);
+      done(null, product);
     })
   }
 
