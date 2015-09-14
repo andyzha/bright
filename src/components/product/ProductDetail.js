@@ -24,7 +24,7 @@ class ProductDetail extends Component {
   }
 
   render() {
-    debug('product result' + JSON.stringify(this.props));
+    debug('product result ' + JSON.stringify(this.props));
     const { product } = this.props;
     var ats = 5;
 

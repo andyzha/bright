@@ -47,7 +47,7 @@ class NavBar extends Component {
             eventKey={3}
             key="demoproduct"
             routeName="product"
-            navParams={{id: 1}}>
+            navParams={{id: '55ebec7fa0c118e9d0095bae'}}>
             Demo Product
           </NavItem>
         </Nav>

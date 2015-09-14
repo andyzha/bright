@@ -20,7 +20,7 @@ const ProductActionCreator = {
         }
 
         debug("return data" + data);
-        context.dispatch(ActionNames.LOAD_Product_SUCCESS, JSON.parse(data));
+        context.dispatch(ActionNames.LOAD_Product_SUCCESS, data);
         done();
       }
     );
