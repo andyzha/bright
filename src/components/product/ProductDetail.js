@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from "react";
 import { connectToStores } from "fluxible-addons-react";
-import { NavLink } from "fluxible-router";
+// import { NavLink } from "fluxible-router";
 import { Grid, Row, Col, Button } from 'react-bootstrap';
 
 import ProductCarousel from "./ProductCarousel";
@@ -33,14 +33,6 @@ class ProductDetail extends Component {
         <Row className="" style={{ marginBottom: '25px'}} >
           <Col lg={12} md={4}>
             <h4>Hello Product page!</h4>
-          </Col>
-          <Col lg={6} md={4}>
-            <NavLink
-                key="product"
-                routeName="product"
-                navParams={{id: product.id}}>
-                {product.name}
-            </NavLink>
           </Col>
         </Row>
         <Row>

@@ -1,5 +1,5 @@
 // Fetchr service to load photos for the given feature.
-import ProductModel from '../dataModels/ProductModel'
+import ProductModel from '../dataModels/ProductModel';
 const debug = require("debug")("brightservices");
 
 export default {
