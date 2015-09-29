@@ -61,10 +61,10 @@ function render(req, res, next) {
 
   // Create a fluxible context (_csrf is needed by the fetchr plugin)
   const context = app.createContext({
-    req: req//,
-    // xhrContext: {
-    //   _csrf: req.csrfToken()
-    // }
+    req: req,
+    xhrContext: {
+      _csrf: req.csrfToken()
+    }
   });
 
   // Fill the intl store with the messages according to locale and
@@ -72,16 +72,17 @@ function render(req, res, next) {
   // (here we make use of executeAction returning a promise)
   Promise.all([
       // context.executeAction(loadIntlMessages, { locale: req.locale }),
-      context.executeAction(navigateAction, { url: req.url })
-    ]).then(() => renderApp(req, res, context, next))
-      .catch((err) => {
-        if (!err.statusCode || !err.status) {
-          next(err);
-        }
-        else {
-          renderApp(req, res, context, next);
-        }
-      });
+    context.executeAction(navigateAction, { url: req.url })
+  ])
+  .then(() => renderApp(req, res, context, next))
+  .catch((err) => {
+    if (!err.statusCode || !err.status) {
+      next(err);
+    }
+    else {
+      renderApp(req, res, context, next);
+    }
+  });
 
 }
 

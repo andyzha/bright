@@ -3,7 +3,9 @@ import { connectToStores } from "fluxible-addons-react";
 // import { NavLink } from "fluxible-router";
 import { Grid, Row, Col, Button } from 'react-bootstrap';
 
-import ProductCarousel from "./ProductCarousel";
+import ProductCarousel from './ProductCarousel';
+import Cart from '../Cart';
+import CartAction from '../../actions/CartActionCreator';
 
 var debug = require("debug")("brightProductDetail");
 // import { loadProduct } from "../actions/ProductActionCreator";
@@ -21,6 +23,13 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
+  }
+
+  addItemToCart() {
+    // debug('addItemToCart result ' + JSON.stringify(this.props));
+    let item = { productId: this.props.product._id, quantity: 1 };
+    this.context.executeAction(CartAction.addItemToCart,
+      { cartId:'123456789012345678901234' , item:item });
   }
 
   render() {
@@ -59,9 +68,12 @@ class ProductDetail extends Component {
             </Row>
             <Row>
               <Col lg={12} md={8}>
-                <Button onClick={this.addToCart} disabled={ats  > 0 ? true : false}>
+                <Button onClick={this.addItemToCart.bind(this)} disabled={ats  < 1 ? true : false}>
                   {ats > 0 ? 'Add To Cart' : 'Sold Out'}
                 </Button>
+              </Col>
+              <Col lg={12} md={8}>
+                <Cart />
               </Col>
             </Row>
           </Col>

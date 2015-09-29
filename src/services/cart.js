@@ -1,8 +1,9 @@
 // Fetchr service to load photos for the given feature.
+// NOTE: register in server fetchr
 import CartModel from '../dataModels/CartModel';
 import Mongoose from 'mongoose';
 
-// const debug = require("debug")("brightservicesCart");
+const debug = require("debug")("brightservicesCart");
 
 export default {
   name: "cart",
@@ -18,39 +19,40 @@ export default {
     })
   },
 
-  update(req, resource, { id, item }, config, done) {
-    if(!Mongoose.Types.ObjectId.isValid(id)) {
-      return done(new Error(`invalid id: ${id}`));
+  update(req, resource, { cartId, item }, body, config, done) {
+    if(!Mongoose.Types.ObjectId.isValid(cartId)) {
+      debug('invalid id ' + cartId);
+      return done(new Error(`invalid cartId: ${cartId}`));
     }
 
-    CartModel.findById(id, (err, cart) => {
+    CartModel.findById(cartId, (err, cart) => {
       if (err) return done(err);
       if (!cart) {
         // Note: set cart id to be the same as user id for simplification
-        cart = new CartModel({ _id:id, items: []});
+        cart = new CartModel({ _id:cartId, items: []});
       }
 
       cart.items.push(item);
+      debug('apply cart ' + cart);
       cart.save(err => {
         done(err, cart);
       });
     })
   },
 
-  delete(req, resource, { id, item }, config, done) {
-    if(!Mongoose.Types.ObjectId.isValid(id)) {
-      return done(new Error(`invalid id: ${id}`));
+  delete(req, resource, { cartId, item }, body, config, done) {
+    if(!Mongoose.Types.ObjectId.isValid(cartId)) {
+      return done(new Error(`invalid cartId: ${cartId}`));
     }
 
-    CartModel.findById(id, (err, cart) => {
+    CartModel.findById(cartId, (err, cart) => {
       if (err) return done(err);
       if (!cart) {
         done(null);
       }
 
-      cart.items.filter(
+      cart.items = cart.items.filter(
         cartItem => item.productId.toString() != cartItem.productId.toString());
-      console.log(cart.items);
       cart.save(err => {
         done(err, cart);
       });

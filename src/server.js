@@ -37,6 +37,7 @@ mongoose.connection.on('disconnected', connect);
 //----setup fetchr, server only registration
 const fetchr = app.getPlugin("FetchrPlugin");
 fetchr.registerService(require("./services/product"));
+fetchr.registerService(require("./services/cart"));
 // Use the fetchr middleware (will enable requests from /api)
 server.use(fetchr.getXhrPath(), fetchr.getMiddleware());
 //----END setup fetchr-----------------------------------------------

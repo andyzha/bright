@@ -82,16 +82,6 @@ describe('Cart API', () => {
   });
 
   describe('#delete()', () => {
-    // it('should return nothing', done => {
-    //   CartService.read(null, null,
-    //     { id: (new mongoose.Types.ObjectId).toString() }, null,
-    //     (err, cart) => {
-    //       if(err) return done(err);
-    //       should.not.exist(cart);
-    //       done();
-    //     });
-    // });
-
     it('should delete one item from the cart', done => {
       CartService.delete(null, null,
         { id: cartId, item: item1 }, null,
@@ -101,7 +91,7 @@ describe('Cart API', () => {
           should.exist(cart.items);
           cart.id.should.equal(cartId);
           cart.items.should.have.length(1);
-          //cart.items[0].should.not.equal(item1);
+          cart.items[0].should.not.equal(item1);
           done();
         });
     });

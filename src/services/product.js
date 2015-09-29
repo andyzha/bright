@@ -1,4 +1,5 @@
 // Fetchr service to load photos for the given feature.
+// NOTE: register in server fetchr
 import ProductModel from '../dataModels/ProductModel';
 const debug = require("debug")("brightservices");
 
@@ -57,7 +58,7 @@ export default {
     //TODO: sanitize id
     ProductModel.findById(id, (err, product) => {
       if (err) return done(err);
-      debug('db result: ' + product.id);
+      // debug('db result: ' + product.id);
       if (!product) return done('no product found for id ' + id);
       done(null, product);
     })
