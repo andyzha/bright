@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from "react";
 import { connectToStores } from "fluxible-addons-react";
 // import { NavLink } from "fluxible-router";
-import { Grid, Row, Col, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Button, Input } from 'react-bootstrap';
 
 import ProductCarousel from './ProductCarousel';
 import Cart from '../Cart';
@@ -15,66 +15,90 @@ var debug = require("debug")("brightProductDetail");
 )
 class ProductDetail extends Component {
   static propTypes = {
-    product: PropTypes.object.isRequired
+    product: PropTypes.object.isRequired,
+    cart: PropTypes.object
   }
 
   static contextTypes = {
     executeAction: PropTypes.func.isRequired
   }
 
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = { editQuantityText: '' };
   }
 
-  addItemToCart() {
+  componentDidMount() {
+    this.context.executeAction(CartAction.loadCart, { cartId:'123456789012345678901234' });
+  }
+
+  addItemToCart = () => {
     // debug('addItemToCart result ' + JSON.stringify(this.props));
-    let item = { productId: this.props.product._id, quantity: 1 };
-    this.context.executeAction(CartAction.addItemToCart,
+    let quantity = parseInt(this.state.editQuantityText, 10);
+    if (!quantity) quantity = 1;
+    let item = { productId: this.props.product._id, quantity: quantity };
+    this.context.executeAction(
+      CartAction.addItemToCart,
       { cartId:'123456789012345678901234' , item:item });
+  }
+
+  validationState = () => {
+    debug('validationState ' + this.state.editQuantityText);
+    let value = this.state.editQuantityText;
+    if(value == '') return '';
+
+    let quantity = parseInt(value, 10);
+    debug('q ' + quantity);
+    if (!quantity) return 'error';
+    else if (quantity > 999 || quantity < 1) return 'warning';
+    else return 'success';
+  }
+
+  handleChange = event => {
+    // This could also be done using ReactLink:
+    // http://facebook.github.io/react/docs/two-way-binding-helpers.html    debug('handleChange ' + event.target.value);
+    this.setState({ editQuantityText: event.target.value });
   }
 
   render() {
     debug('product result ' + JSON.stringify(this.props));
     const { product } = this.props;
-    var ats = 5;
 
     return (
       <Grid>
-        <Row className="" style={{ marginBottom: '25px'}} >
-          <Col lg={12} md={4}>
-            <h4>Hello Product page!</h4>
-          </Col>
-        </Row>
         <Row>
-          <Col lg={10} md={8}>
+          <Col lg={12} md={12}>
             <ProductCarousel product={product}/>
           </Col>
         </Row>
-        <Row style={{ marginTop: '20px'}}>
-          <Col lg={6} md={8}>
+        <Row style={{ marginTop: '25px'}}>
+          <Col lg={8} md={8}>
             <h1 className="name">{this.props.product.name}</h1>
             <p className="description">{this.props.product.description}</p>
           </Col>
           <Col lg={3} md={8}>
             <Row>
-              <Col lg={12} md={8}>
-                <select onChange={this.selectVariant}>
-                  {this.props.product.variants.map(function(variant, index){
-                    return (
-                      <option key={index} value={index}>{variant.type}</option>
-                    )
-                  })}
-                </select>
+              <Col >
+                <Button bsSize="large" block
+                  onClick={this.addItemToCart} disabled={false}>
+                  Add To Cart
+                </Button>
               </Col>
             </Row>
             <Row>
-              <Col lg={12} md={8}>
-                <Button onClick={this.addItemToCart.bind(this)} disabled={ats  < 1 ? true : false}>
-                  {ats > 0 ? 'Add To Cart' : 'Sold Out'}
-                </Button>
+              <Col >
+                <Input
+                  type="text"
+                  value={this.state.editQuantityText}
+                  ref="input"
+                  bsStyle={this.validationState()}
+                  placeholder="Enter quantity"
+                  hasFeedback
+                  onChange={this.handleChange} />
               </Col>
-              <Col lg={12} md={8}>
-                <Cart />
-              </Col>
+            </Row>
+            <Row>
+              <Cart />
             </Row>
           </Col>
         </Row>

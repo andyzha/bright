@@ -8,12 +8,12 @@ const debug = require("debug")("brightservicesCart");
 export default {
   name: "cart",
 
-  read(req, resource, { id }, config, done) {
-    if(!Mongoose.Types.ObjectId.isValid(id)) {
-      return done(new Error(`invalid id: ${id}`));
+  read(req, resource, { cartId }, config, done) {
+    if(!Mongoose.Types.ObjectId.isValid(cartId)) {
+      return done(new Error(`invalid cartId: ${cartId}`));
     }
 
-    CartModel.findById(id, (err, cart) => {
+    CartModel.findById(cartId, (err, cart) => {
       if (err) return done(err);
       done(null, cart);
     })
@@ -32,6 +32,9 @@ export default {
         cart = new CartModel({ _id:cartId, items: []});
       }
 
+      // remove same item if in cart
+      cart.items = cart.items.filter(
+        cartItem => item.productId.toString() != cartItem.productId.toString());
       cart.items.push(item);
       debug('apply cart ' + cart);
       cart.save(err => {
@@ -40,7 +43,7 @@ export default {
     })
   },
 
-  delete(req, resource, { cartId, item }, body, config, done) {
+  delete(req, resource, { cartId, item }, config, done) {
     if(!Mongoose.Types.ObjectId.isValid(cartId)) {
       return done(new Error(`invalid cartId: ${cartId}`));
     }

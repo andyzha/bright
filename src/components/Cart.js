@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from "react";
-import { Grid, Row, Col, Button } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import { connectToStores } from "fluxible-addons-react";
 
 var debug = require("debug")("brightCart");
-// import { loadProduct } from "../actions/ProductActionCreator";
+import CartAction from '../actions/CartActionCreator';
 
 //TODO switch to user id when available
 @connectToStores(["CartStore"], (context, props) =>
@@ -11,29 +11,38 @@ var debug = require("debug")("brightCart");
 )
 class Cart extends Component {
   static propTypes = {
-    cart: PropTypes.object.isRequired
+    cart: PropTypes.object
   }
 
   static contextTypes = {
     executeAction: PropTypes.func.isRequired
   }
 
-  render() {
-    if (!this.props.cart) {
-      return (<p>no item in cart</p>);
-    }
+  deleteItemFromCart(item) {
+    debug(`addItemToCart: cartId - ${this.props.cart}; item - ${JSON.stringify(item)}`);
+    this.context.executeAction(CartAction.deleteItemFromCart,
+      { cartId:this.props.cart.id, item:item });
+  }
 
-    debug('cart: ' + this.props.cart);
+  render() {
+    debug('cart: ' + JSON.stringify(this.props.cart));
+    if (!this.props.cart || this.props.cart.items.length < 1)
+      return <h4>your cart is empty</h4>;
     const { items } = this.props.cart;
 
     return (
-      <Col lg={6} md={8}>
-        <p className="cartHeader">cart</p>
-        { items.map((item, index) => {
+      <ListGroup>
+        <ListGroupItem><h3>Shopping Cart</h3></ListGroupItem>
+        { items.map((item) => {
           return (
-            <p>{item}</p>
+            <ListGroupItem key={item.productId} header={item.productId}>
+              Quantity: {item.quantity}
+              <Button bsStyle="link" onClick={this.deleteItemFromCart.bind(this, item)}>
+                Remove
+              </Button>
+            </ListGroupItem>
         )})}
-      </Col>
+      </ListGroup>
     );
   }
 }

@@ -18,8 +18,7 @@ class CartStore extends BaseStore {
 
   handleLoadCartSuccess(cart) {
     debug('cart in store: ' + JSON.stringify(cart));
-
-    this.cart[cart.id] = cart;
+    if (cart) this.cart[cart.id] = cart;
     this.emitChange();
   }
 
