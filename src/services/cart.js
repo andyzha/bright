@@ -13,6 +13,8 @@ export default {
       return done(new Error(`invalid cartId: ${cartId}`));
     }
 
+    debug('Is auth ' + req.isAuthenticated());
+
     CartModel.findById(cartId, (err, cart) => {
       if (err) return done(err);
       done(null, cart);

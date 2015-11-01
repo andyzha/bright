@@ -3,7 +3,9 @@ import { connectToStores } from "fluxible-addons-react";
 import { Navbar, Nav } from 'react-bootstrap';
 // import { DropdownButton, MenuItem } from 'react-bootstrap';
 
-import NavItem from "./NavItem";
+import NavItem from './NavItem';
+import Login from './Login';
+import Register from './Register';
 // import Logo from "./Logo";
 
 // import features from "../constants/features";
@@ -50,6 +52,8 @@ class NavBar extends Component {
             navParams={{id: '55ebec7fa0c118e9d0095bae'}}>
             Demo Product
           </NavItem>
+          <Login />
+          <Register />
         </Nav>
       </Navbar>
     );

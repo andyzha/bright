@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from "react";
 import { provideContext, connectToStores } from "fluxible-addons-react";
 import { handleHistory } from "fluxible-router";
