@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from "react";
 import { provideContext, connectToStores } from "fluxible-addons-react";
 import { handleHistory } from "fluxible-router";
@@ -10,7 +9,11 @@ import NotFoundPage from "./components/NotFoundPage";
 import ErrorPage from "./components/ErrorPage";
 import LoadingPage from "./components/LoadingPage";
 
+import HtmlHeadStore from './stores/HtmlHeadStore';
+// import UserStore from './stores/UserStore';
 //import trackPageView from "./utils/trackPageView";
+
+var debug = require("debug")("brightApplication");
 
 // if (process.env.BROWSER) {
 //   require("./style/Application.scss");
@@ -26,8 +29,9 @@ import LoadingPage from "./components/LoadingPage";
 @handleHistory
 
 // Listen to HtmlHeadStore and pass the document title to the component
-@connectToStores(["HtmlHeadStore"], (context) =>
-  ({ documentTitle: context.getStore("HtmlHeadStore").getTitle() })
+@connectToStores([HtmlHeadStore], (context) =>
+  ({
+    documentTitle: context.getStore(HtmlHeadStore).getTitle() })
 )
 
 class Application extends Component {
@@ -43,7 +47,8 @@ class Application extends Component {
     }),
 
     // prop coming from HtmlHeadStore
-    documentTitle: PropTypes.string
+    documentTitle: PropTypes.string,
+    loggedInUser: PropTypes.object
 
   }
 
@@ -60,7 +65,9 @@ class Application extends Component {
   }
 
   render() {
-    const { currentRoute, currentNavigateError, isNavigateComplete } = this.props;
+    debug('Application render');
+    const { currentRoute, currentNavigateError, isNavigateComplete }
+      = this.props;
 
     let Handler = currentRoute && currentRoute.get("handler");
 
@@ -90,7 +97,7 @@ class Application extends Component {
       content = <Handler {...params} />;
     }
     return (
-      <Page footer={isNavigateComplete}>
+      <Page footer={isNavigateComplete} >
         { content }
       </Page>
     );

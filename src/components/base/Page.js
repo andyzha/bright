@@ -3,14 +3,16 @@ import React, { Component, PropTypes } from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 
-if (process.env.BROWSER) {
-  require("../../style/Page.scss");
-}
+// if (process.env.BROWSER) {
+//   require("../../style/Page.scss");
+// }
 
 class Page extends Component {
 
   static propTypes = {
-    footer: PropTypes.bool
+    footer: PropTypes.bool,
+    // loggedInUser: PropTypes.object,
+    children: PropTypes.node
   }
 
   static defaultProps = {
@@ -21,7 +23,7 @@ class Page extends Component {
     const { footer } = this.props;
 
     return (
-      <div className="Page">
+      <div className="Page container-fluid">
         <div className="Page-header">
           <NavBar />
         </div>
@@ -30,10 +32,7 @@ class Page extends Component {
           { this.props.children }
         </div>
 
-        { footer &&
-          <div className="Page-footer">
-            <Footer />
-          </div> }
+        { footer && <Footer /> }
 
       </div>
     );

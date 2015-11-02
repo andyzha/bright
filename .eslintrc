@@ -37,6 +37,7 @@
   },
 
   "ecmaFeatures": {
+    "classes": true,
     "jsx": true
   },
 

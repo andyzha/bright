@@ -1,54 +1,63 @@
 import React, { PropTypes, Component } from "react";
-import { connectToStores } from "fluxible-addons-react";
-import { NavLink } from "fluxible-router";
+// import { connectToStores } from "fluxible-addons-react";
+import { Navbar, Nav } from 'react-bootstrap';
+// import { DropdownButton, MenuItem } from 'react-bootstrap';
 
-import Logo from "./Logo";
+import NavItem from './NavItem';
+import Login from './Login';
+import Register from './Register';
+// import Logo from "./Logo";
 
+// import UserStore from '../../stores/UserStore';
 // import features from "../constants/features";
 // import LocaleSwitcher from "./LocaleSwitcher";
 // import { FormattedMessage } from "../utils/IntlComponents";
 
-if (process.env.BROWSER) {
-  require("../../style/NavBar.scss");
-}
+// if (process.env.BROWSER) {
+//   require("../../style/NavBar.scss");
+// }
 
-@connectToStores([], (context) =>
-  ({ route: context.getStore("RouteStore").getCurrentRoute() })
-)
+// @connectToStores([UserStore], context =>
+//   ({ // route: context.getStore("RouteStore").getCurrentRoute(),
+//     user: context.getStore(UserStore).get() })
+// )
 class NavBar extends Component {
 
   static PropTypes = {
-    route: PropTypes.object.isRequired
+    // route: PropTypes.object.isRequired,
+    loggedInUser: PropTypes.object
   }
 
   render() {
-    const { route } = this.props;
-    const currentFeature = route ? route.getIn(["params", "feature"]) : null;
-    const className = "NavBar-link";
+    const { loggedInUser } = this.props;
     return (
-      <div className="NavBar">
-        <div className="NavBar-title">
-          <NavLink href="/">
-            <Logo />
-          </NavLink>
-        </div>
-        <div className="NavBar-links">
-          <NavLink
+      <Navbar brand='Bright-Prototype' toggleNavKey={0}>
+        <Nav right eventKey={0}> {/* This is the eventKey referenced */}
+          <NavItem
+            eventKey={1}
             key="home"
-            className={className}
             routeName="home"
-            navParams={{feature: currentFeature}}>
-            home
-          </NavLink>
-          <NavLink
+            navParams={{}}>
+            Home
+          </NavItem>
+          <NavItem
+            eventKey={2}
             key="about"
-            className={className}
             routeName="about"
-            navParams={{feature: currentFeature}}>
-            about
-          </NavLink>
-        </div>
-      </div>
+            navParams={{}}>
+            About
+          </NavItem>
+          <NavItem
+            eventKey={3}
+            key="demoproduct"
+            routeName="product"
+            navParams={{id: '55ebec7fa0c118e9d0095bae'}}>
+            Demo Product
+          </NavItem>
+          <Login />
+          <Register />
+        </Nav>
+      </Navbar>
     );
   }
 
