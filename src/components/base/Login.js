@@ -1,9 +1,21 @@
 import React, { Component, PropTypes } from "react";
+import { connectToStores } from "fluxible-addons-react";
 import { Button, Modal, ButtonInput, Input } from 'react-bootstrap';
 
 import UserAction from '../../actions/UserActionCreator';
+import UserStore from '../../stores/UserStore';
 
+const debug = require("debug")("brightCompLogin");
+
+@connectToStores([UserStore], context =>
+  ({ loggedInUser: context.getStore(UserStore).get() })
+)
 class Login extends Component {
+
+  static propTypes = {
+    loggedInUser: PropTypes.object
+  }
+
   static contextTypes = {
     executeAction: PropTypes.func.isRequired
   }
@@ -30,10 +42,15 @@ class Login extends Component {
   }
 
   render() {
+    let { loggedInUser } = this.props;
+    let isLogin = loggedInUser != null && loggedInUser.id != null;
+    debug('isLogin: ' + isLogin + ' loggedInUser: ' + JSON.stringify(loggedInUser));
+    let msg = isLogin?`hello ${loggedInUser.name} `:'Login';
+
     return (
       <li>
-        <Button bsStyle="link" onClick={this.openAuthModal}>
-        Login
+        <Button bsStyle="link" onClick={this.openAuthModal} >
+        {msg}
         </Button>
 
         <Modal show={this.state.showModal} onHide={this.close}>

@@ -9,6 +9,7 @@ import Application from "./Application";
 import ProductStore from "./stores/ProductStore";
 import HtmlHeadStore from "./stores/HtmlHeadStore";
 import CartStore from "./stores/CartStore";
+import UserStore from "./stores/UserStore";
 //import IntlStore from "./stores/IntlStore";
 
 // Create the fluxible app using Application as root component
@@ -25,6 +26,7 @@ app.registerStore(AppRouteStore);
 app.registerStore(ProductStore);
 app.registerStore(HtmlHeadStore);
 app.registerStore(CartStore);
+app.registerStore(UserStore);
 // app.registerStore(IntlStore);
 
 export default app;

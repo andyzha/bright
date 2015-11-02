@@ -1,7 +1,7 @@
 import { BaseStore } from "fluxible/addons";
 import ActionNames from "../constants/ActionNames";
 
-var debug = require("debug")("brightstore");
+var debug = require("debug")("brightStoreProduct");
 // import _ from "lodash";
 
 /*

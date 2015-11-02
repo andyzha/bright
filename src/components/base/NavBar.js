@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from "react";
-import { connectToStores } from "fluxible-addons-react";
+// import { connectToStores } from "fluxible-addons-react";
 import { Navbar, Nav } from 'react-bootstrap';
 // import { DropdownButton, MenuItem } from 'react-bootstrap';
 
@@ -8,6 +8,7 @@ import Login from './Login';
 import Register from './Register';
 // import Logo from "./Logo";
 
+// import UserStore from '../../stores/UserStore';
 // import features from "../constants/features";
 // import LocaleSwitcher from "./LocaleSwitcher";
 // import { FormattedMessage } from "../utils/IntlComponents";
@@ -16,18 +17,19 @@ import Register from './Register';
 //   require("../../style/NavBar.scss");
 // }
 
-@connectToStores([], (context) =>
-  ({ route: context.getStore("RouteStore").getCurrentRoute() })
-)
+// @connectToStores([UserStore], context =>
+//   ({ // route: context.getStore("RouteStore").getCurrentRoute(),
+//     user: context.getStore(UserStore).get() })
+// )
 class NavBar extends Component {
 
   static PropTypes = {
-    route: PropTypes.object.isRequired
+    // route: PropTypes.object.isRequired,
+    loggedInUser: PropTypes.object
   }
 
   render() {
-    const { route } = this.props;
-    const currentFeature = route ? route.getIn(["params", "feature"]) : null;
+    const { loggedInUser } = this.props;
     return (
       <Navbar brand='Bright-Prototype' toggleNavKey={0}>
         <Nav right eventKey={0}> {/* This is the eventKey referenced */}
@@ -35,14 +37,14 @@ class NavBar extends Component {
             eventKey={1}
             key="home"
             routeName="home"
-            navParams={{feature: currentFeature}}>
+            navParams={{}}>
             Home
           </NavItem>
           <NavItem
             eventKey={2}
             key="about"
             routeName="about"
-            navParams={{feature: currentFeature}}>
+            navParams={{}}>
             About
           </NavItem>
           <NavItem

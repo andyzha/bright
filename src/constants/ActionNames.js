@@ -7,6 +7,8 @@ const ActionNames = keyMirror({
   LOAD_Cart_SUCCESS: null,
   //LOAD_INTL_SERVER: null,
 
+  HandleServiceRenderUser: null,
+
   // fluxible-router actions
   NAVIGATE_START: null,
   NAVIGATE_SUCCESS: null,

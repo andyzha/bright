@@ -22,6 +22,16 @@ const UserActionCreator = {
     );
   },
 
+  handleServiceRenderUser(context, { user }, done) {
+    let loggedInUser = {};
+    if (user != null) {
+      loggedInUser.name = user.email;
+      loggedInUser.id = user.id;
+    }
+    context.dispatch(ActionNames.HandleServiceRenderUser, loggedInUser);
+    done();
+  },
+
   login(context, { user }, done) {
 
     context.service.read("user", { user }, { timeout: TIMEOUT },

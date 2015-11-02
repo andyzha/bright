@@ -11,6 +11,7 @@ class Page extends Component {
 
   static propTypes = {
     footer: PropTypes.bool,
+    // loggedInUser: PropTypes.object,
     children: PropTypes.node
   }
 

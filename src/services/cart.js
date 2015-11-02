@@ -9,11 +9,14 @@ export default {
   name: "cart",
 
   read(req, resource, { cartId }, config, done) {
-    if(!Mongoose.Types.ObjectId.isValid(cartId)) {
+    if (!Mongoose.Types.ObjectId.isValid(cartId)) {
       return done(new Error(`invalid cartId: ${cartId}`));
     }
 
     debug('Is auth ' + req.isAuthenticated());
+    if (!req.isAuthenticated()) {
+      return done(null, {})
+    }
 
     CartModel.findById(cartId, (err, cart) => {
       if (err) return done(err);
@@ -25,6 +28,10 @@ export default {
     if(!Mongoose.Types.ObjectId.isValid(cartId)) {
       debug('invalid id ' + cartId);
       return done(new Error(`invalid cartId: ${cartId}`));
+    }
+
+    if (!req.isAuthenticated()) {
+      return done(null, {})
     }
 
     CartModel.findById(cartId, (err, cart) => {
@@ -48,6 +55,10 @@ export default {
   delete(req, resource, { cartId, item }, config, done) {
     if(!Mongoose.Types.ObjectId.isValid(cartId)) {
       return done(new Error(`invalid cartId: ${cartId}`));
+    }
+
+    if (!req.isAuthenticated()) {
+      return done(null, {})
     }
 
     CartModel.findById(cartId, (err, cart) => {

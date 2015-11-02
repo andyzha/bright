@@ -1,13 +1,14 @@
 import React, { PropTypes, Component } from "react";
 import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import { connectToStores } from "fluxible-addons-react";
-
-var debug = require("debug")("brightCart");
 import CartAction from '../actions/CartActionCreator';
+import CartStore from '../stores/CartStore';
+
+var debug = require("debug")("brightCompCart");
 
 //TODO switch to user id when available
-@connectToStores(["CartStore"], (context, props) =>
-  ({ cart: context.getStore("CartStore").get('123456789012345678901234') })
+@connectToStores([CartStore], (context) =>
+  ({ cart: context.getStore(CartStore).get('123456789012345678901234') })
 )
 class Cart extends Component {
   static propTypes = {
@@ -16,6 +17,14 @@ class Cart extends Component {
 
   static contextTypes = {
     executeAction: PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.context.executeAction(CartAction.loadCart, { cartId:'123456789012345678901234' });
   }
 
   deleteItemFromCart(item) {

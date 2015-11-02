@@ -1,9 +1,18 @@
 import React, { PropTypes, Component } from "react";
 import { Button, Modal, ButtonInput, Input } from 'react-bootstrap';
+import { connectToStores } from "fluxible-addons-react";
 
 import UserAction from '../../actions/UserActionCreator';
+import UserStore from '../../stores/UserStore';
 
+@connectToStores([UserStore], context =>
+  ({ loggedInUser: context.getStore(UserStore).get() })
+)
 class Register extends Component {
+  static propTypes = {
+    loggedInUser: PropTypes.object
+  }
+
   static contextTypes = {
     executeAction: PropTypes.func.isRequired
   }
@@ -30,10 +39,14 @@ class Register extends Component {
   }
 
   render() {
+    let { loggedInUser } = this.props;
+    let isLogin = loggedInUser != null && loggedInUser.id != null;
+    let msg = isLogin?`Logout`:'Register';
+
     return (
       <li>
         <Button bsStyle="link" onClick={this.openAuthModal}>
-        Register
+        {msg}
         </Button>
 
         <Modal show={this.state.showModal} onHide={this.close}>

@@ -6,9 +6,11 @@ import serialize from "serialize-javascript";
 
 import app from "../app";
 import HtmlDocument from "./HtmlDocument";
+import { handleServiceRenderUser } from '../actions/UserActionCreator';
 
 import { navigateAction } from "fluxible-router";
 //import { loadIntlMessages } from "../actions/IntlActionCreators";
+const debug = require("debug")("brightRender");
 
 let webpackStats;
 
@@ -58,6 +60,7 @@ function renderApp(req, res, context, next) {
 
 
 function render(req, res, next) {
+  //debug('req user: ' + JSON.stringify(req.user));
 
   // Create a fluxible context (_csrf is needed by the fetchr plugin)
   const context = app.createContext({
@@ -72,16 +75,18 @@ function render(req, res, next) {
   // (here we make use of executeAction returning a promise)
   Promise.all([
       // context.executeAction(loadIntlMessages, { locale: req.locale }),
+    context.executeAction(handleServiceRenderUser, { user: req.user }),
     context.executeAction(navigateAction, { url: req.url })
   ])
   .then(() => renderApp(req, res, context, next))
   .catch((err) => {
-    if (!err.statusCode || !err.status) {
-      next(err);
-    }
-    else {
-      renderApp(req, res, context, next);
-    }
+    renderApp(req, res, context, next);
+    // if (!err.statusCode || !err.status) {
+    //   next(err);
+    // }
+    // else {
+    //   renderApp(req, res, context, next);
+    // }
   });
 
 }

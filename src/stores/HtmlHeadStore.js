@@ -2,6 +2,7 @@ import { BaseStore } from "fluxible/addons";
 import ActionNames from "../constants/ActionNames";
 // import IntlMessageFormat from "intl-messageformat";
 
+//TODO switch to config
 const SITE_NAME = "BrightProto1";
 const BASE_URL = "http://localhost";
 
@@ -16,7 +17,7 @@ class HtmlHeadStore extends BaseStore {
   static storeName = "HtmlHeadStore"
 
   static handlers = {
-    [ActionNames.NAVIGATE_START]: "handleNavigateStart",
+    // [ActionNames.NAVIGATE_START]: "handleNavigateStart",
     [ActionNames.NAVIGATE_SUCCESS]: "handleNavigateSuccess",
     [ActionNames.NAVIGATE_FAILURE]: "handleNavigateFailure"
   }
@@ -66,11 +67,11 @@ class HtmlHeadStore extends BaseStore {
     return message;
   }
 
-  handleNavigateStart() {
-    // Use a loading title when loading the route
-    this.title = this.formatMessage("meta.loadingTitle");
-    this.emitChange();
-  }
+  // handleNavigateStart() {
+  //   // Use a loading title when loading the route
+  //   this.title = this.formatMessage("meta.loadingTitle");
+  //   this.emitChange();
+  // }
 
   // Set the store content (images, description, title, etc.) according to the received route
   // Remember: route is an immutable object!
