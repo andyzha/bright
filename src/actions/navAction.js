@@ -1,6 +1,10 @@
 // Actions to run when the router matches a route. Used in app/routes.js
 
 import { loadProduct } from "../actions/ProductActionCreator";
+import { loadAllProduct } from "../actions/ProductActionCreator";
+import { loadDisplayProduct } from "../actions/ProductActionCreator";
+
+var debug = require("debug")("brightNav");
 
 const NavActions = {
 
@@ -12,6 +16,14 @@ const NavActions = {
   getProduct(context, route, done) {
     const id = route.getIn(["params", "id"]);
     context.executeAction(loadProduct, { id }, done);
+  },
+
+  getAllProducts(context, route, done) {
+    context.executeAction(loadAllProduct, { }, done);
+  },
+
+  getDisplayProducts(context, route, done) {
+    context.executeAction(loadDisplayProduct, { }, done);
   },
 
   // do not load something, just send an error in the callback

@@ -61,6 +61,8 @@ const fetchr = app.getPlugin("FetchrPlugin");
 fetchr.registerService(require("./services/product"));
 fetchr.registerService(require("./services/cart"));
 fetchr.registerService(require("./services/user"));
+fetchr.registerService(require("./services/allProduct"));
+fetchr.registerService(require("./services/displayProduct"));
 // Use the fetchr middleware (will enable requests from /api)
 server.use(fetchr.getXhrPath(), fetchr.getMiddleware());
 //----END setup fetchr-----------------------------------------------

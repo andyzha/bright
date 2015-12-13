@@ -1,16 +1,17 @@
 import React, { PropTypes, Component } from "react";
 import { connectToStores } from "fluxible-addons-react";
+// import { NavLink } from "fluxible-router";
 import { Grid, Row, Col, Button, Input } from 'react-bootstrap';
 
 import ProductCarousel from './ProductCarousel';
 import Cart from '../Cart';
 import CartAction from '../../actions/CartActionCreator';
-import ProductStore from '../../stores/ProductStore';
 
 var debug = require("debug")("brightProductDetail");
+// import { loadProduct } from "../actions/ProductActionCreator";
 
-@connectToStores([ProductStore], (context, props) =>
-  ({ product: context.getStore(ProductStore).get(props.id) })
+@connectToStores(["ProductStore"], (context, props) =>
+  ({ product: context.getStore("ProductStore").get(props.id) })
 )
 class ProductDetail extends Component {
   static propTypes = {
@@ -28,6 +29,7 @@ class ProductDetail extends Component {
   }
 
   componentDidMount() {
+    this.context.executeAction(CartAction.loadCart, { cartId:'123456789012345678901234' });
   }
 
   addItemToCart = () => {
@@ -43,7 +45,7 @@ class ProductDetail extends Component {
   validationState = () => {
     debug('validationState ' + this.state.editQuantityText);
     let value = this.state.editQuantityText;
-    if(value == '') return 'success';
+    if(value == '') return '';
 
     let quantity = parseInt(value, 10);
     debug('q ' + quantity);
@@ -61,12 +63,13 @@ class ProductDetail extends Component {
   render() {
     debug('product result ' + JSON.stringify(this.props));
     const { product } = this.props;
+    let imageList = product.images;
 
     return (
       <Grid>
         <Row>
           <Col lg={12} md={12}>
-            <ProductCarousel product={product}/>
+            <ProductCarousel imageList={imageList}/>
           </Col>
         </Row>
         <Row style={{ marginTop: '25px'}}>

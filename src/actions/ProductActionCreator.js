@@ -7,6 +7,21 @@ const TIMEOUT = 20000;
 
 const ProductActionCreator = {
 
+  loadAllProduct(context, { }, done) {
+    debug ("return all data");
+    context.service.read("allProduct", { }, { timeout:  TIMEOUT },
+        (err, data) => {
+          if (err) {
+            debug ('return all data error');
+            return done(err);
+          }
+          debug ("return all data 1");
+          context.dispatch(ActionNames.LOAD_All_Product_SUCCESS, data);
+          done();
+        }
+     );
+  },
+
   loadProduct(context, { id }, done) {
     // var data = {"name":"Product" + id, "id":id };
     // debug("return data" + JSON.stringify(data));
@@ -36,6 +51,21 @@ const ProductActionCreator = {
     //     done();
     //   }
     // );
+  },
+
+  loadDisplayProduct(context, { }, done) {
+    debug ("Get display product");
+    context.service.read("displayProduct", { }, { timeout:  TIMEOUT },
+        (err, data) => {
+          if (err) {
+            debug ('return display error');
+            return done(err);
+          }
+          debug ("return display products");
+          context.dispatch(ActionNames.LOAD_Display_Product_SUCCESS, data);
+          done();
+        }
+    );
   }
 
 };
